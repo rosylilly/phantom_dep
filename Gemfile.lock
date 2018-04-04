@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    phantom_dep (0.1.0)
+    phantom_dep (0.0.1)
 
 GEM
   remote: https://rubygems.org/

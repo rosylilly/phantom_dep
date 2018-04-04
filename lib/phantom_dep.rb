@@ -54,7 +54,8 @@ class PhantomDep
   end
 
   def gems_by_bundler
-    Bundler.locked_gems.specs.select { |spec| @include_dependencies || gems_by_dependencies.include?(spec.name) }.map(&:full_name).sort
+    filterd_gems = Bundler.locked_gems.specs.select { |spec| @include_dependencies || gems_by_dependencies.include?(spec.name) }
+    filterd_gems.reject(&:nil?).map(&:full_name).sort
   end
 
   def loaded_gemspecs
@@ -62,7 +63,7 @@ class PhantomDep
   end
 
   def ignored_gems
-    @ignored_gem_names.map { |name| Gem.loaded_specs.values.find { |gem| gem.name == name } }.map(&:full_name).sort
+    @ignored_gem_names.map { |name| Gem.loaded_specs.values.find { |gem| gem.name == name } }.reject(&:nil?).map(&:full_name).sort
   end
 
   def gems_in_use
